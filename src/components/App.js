@@ -9,6 +9,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
+//Основной компонент
 function App() {
     //Хуки, отвечающие за видимость 4 попапов
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
