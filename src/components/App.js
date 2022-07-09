@@ -14,9 +14,11 @@ function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-    const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+
     //Стейт-переменная, отвечающая за просматриваемую карточку
-    const [selectedCard, setSelectedCard] = React.useState({});
+    const [selectedCard, setSelectedCard] = React.useState(null);
+    //В случае с объектами null в качестве начального состояния допускается, а selectedCard у нас - объект
+    //Тогда состояние открытого imagePopup можно вычислять как selectedCard !== null
 
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
@@ -34,11 +36,10 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsEditAvatarPopupOpen(false);
-        setIsImagePopupOpen(false);
+        setSelectedCard(null);
     }
 
     function handleCardClick(card) {
-        setIsImagePopupOpen(true);
         setSelectedCard(card);
     }
 
@@ -46,9 +47,22 @@ function App() {
         <div className="body">
             <div className="page">
                 <Header />
-                <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
+                <Main
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onEditAvatar={handleEditAvatarClick}
+                    onCardClick={handleCardClick}
+                />
                 <Footer />
-                <PopupWithForm name="profile" title="Редактировать профиль" function="edit" textButton="Сохранить" flag={false} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+                <PopupWithForm
+                    name="profile"
+                    title="Редактировать профиль"
+                    functionPopup="edit"
+                    textButton="Сохранить"
+                    flag={false}
+                    isOpen={isEditProfilePopupOpen}
+                    onClose={closeAllPopups}
+                >
                     <fieldset className="popup__user-info">
                         <input id="name-input" className="popup__text popup__text_purpose_name" type="text" name="name" placeholder="Имя" required minLength="2" maxLength="40" />
                         <span className="popup__text-error name-input-error">Необходимо заполнить данное поле.</span>
@@ -56,7 +70,15 @@ function App() {
                         <span className="popup__text-error characteristic-input-error">Необходимо заполнить данное поле.</span>
                     </fieldset>
                 </PopupWithForm>
-                <PopupWithForm name="adding" title="Новое место" function="add" textButton="Создать" flag={false} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+                <PopupWithForm
+                    name="adding"
+                    title="Новое место"
+                    functionPopup="add"
+                    textButton="Создать"
+                    flag={false}
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups}
+                >
                     <fieldset className="popup__user-info">
                         <input id="title-input" className="popup__text popup__text_purpose_title" type="text" name="title" placeholder="Название" required minLength="2" maxLength="30" />
                         <span className="popup__text-error title-input-error">Необходимо заполнить данное поле.</span>
@@ -64,9 +86,23 @@ function App() {
                         <span className="popup__text-error src-input-error">Необходимо заполнить данное поле.</span>
                     </fieldset>
                 </PopupWithForm>
-                <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
-                <PopupWithForm name="delete-confirmation" title="Вы уверены?" function="confirm" textButton="Да" flag={true} />
-                <PopupWithForm name="avatar" title="Обновить аватар" function="change-avatar" textButton="Сохранить" flag={true} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+                <PopupWithForm 
+                    name="delete-confirmation"
+                    title="Вы уверены?"
+                    functionPopup="confirm"
+                    textButton="Да"
+                    flag={true}
+                />
+                <PopupWithForm
+                    name="avatar"
+                    title="Обновить аватар"
+                    functionPopup="change-avatar"
+                    textButton="Сохранить"
+                    flag={true}
+                    isOpen={isEditAvatarPopupOpen}
+                    onClose={closeAllPopups}
+                >
                     <fieldset className="popup__user-info">
                         <input id="avatar-input" className="popup__text popup__text_purpose_change-avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required />
                         <span className="popup__text-error avatar-input-error">Необходимо заполнить данное поле.</span>
