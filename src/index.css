@@ -29,6 +29,8 @@
 @import url(./blocks/photogrid/__item/photogrid__item.css);
 @import url(./blocks/photogrid/__image/photogrid__image.css);
 @import url(./blocks/photogrid/__urn/photogrid__urn.css);
+@import url(./blocks/photogrid/__urn/_visible/photogrid__urn_visible.css);
+@import url(./blocks/photogrid/__urn/_hidden/photogrid__urn_hidden.css);
 @import url(./blocks/photogrid/__sign/photogrid__sign.css);
 @import url(./blocks/photogrid/__heading/photogrid__heading.css);
 @import url(./blocks/photogrid/__like-section/photogrid__like-section.css);
