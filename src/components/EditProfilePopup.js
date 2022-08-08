@@ -38,16 +38,11 @@ function EditProfilePopup({
     const currentUserInfoContext = React.useContext(CurrentUserContext);
     //Создадим эффект, который будет обновлять переменные состояния name и description при изменении контекста
     React.useEffect(() => {
-        setName(currentUserInfoContext.name);
-        setDescription(currentUserInfoContext.about);
-    }, [currentUserInfoContext]); //[] - массив с переменными, изменение хотя бы 1 из которых должно провоцировать выполнение хука (зависимости)
-
-    React.useEffect(() => {
-        if (!isOpen) {
+        if (isOpen) {
             setName(currentUserInfoContext.name);
             setDescription(currentUserInfoContext.about);
         }
-    }, [isOpen]);
+    }, [currentUserInfoContext, isOpen]); //[] - массив с переменными, изменение хотя бы 1 из которых должно провоцировать выполнение хука (зависимости)
 
     return (
         <PopupWithForm
@@ -61,9 +56,31 @@ function EditProfilePopup({
             onSubmit={handleSubmit}
         >
             <fieldset className="popup__user-info">
-                <input id="name-input" value={name} onChange={handleNameChange} className="popup__text popup__text_purpose_name" type="text" name="name" placeholder="Имя" required minLength="2" maxLength="40" />
+                <input
+                    id="name-input"
+                    value={name}
+                    onChange={handleNameChange}
+                    className="popup__text popup__text_purpose_name"
+                    type="text"
+                    name="name"
+                    placeholder="Имя"
+                    required
+                    minLength="2"
+                    maxLength="40"
+                />
                 <span className="popup__text-error name-input-error">Необходимо заполнить данное поле.</span>
-                <input id="characteristic-input" value={description} onChange={handleDescriptionChange} className="popup__text popup__text_purpose_characteristic" type="text" name="characteristic" placeholder="Характеристика" required minLength="2" maxLength="200" />
+                <input
+                    id="characteristic-input"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    className="popup__text popup__text_purpose_characteristic"
+                    type="text"
+                    name="characteristic"
+                    placeholder="Характеристика"
+                    required
+                    minLength="2"
+                    maxLength="200"
+                />
                 <span className="popup__text-error characteristic-input-error">Необходимо заполнить данное поле.</span>
             </fieldset>
         </PopupWithForm>

@@ -40,7 +40,15 @@ function EditAvatarPopup({
             onSubmit={handleSubmit}
         >
             <fieldset className="popup__user-info">
-                <input id="avatar-input" ref={avatarRef} className="popup__text popup__text_purpose_change-avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required />
+                <input
+                    id="avatar-input"
+                    ref={avatarRef}
+                    className="popup__text popup__text_purpose_change-avatar"
+                    type="url"
+                    name="avatar"
+                    placeholder="Ссылка на картинку"
+                    required
+                />
                 <span className="popup__text-error avatar-input-error">Необходимо заполнить данное поле.</span>
             </fieldset>
         </PopupWithForm>

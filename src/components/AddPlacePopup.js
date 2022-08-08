@@ -47,9 +47,29 @@ function AddPlacePopup({
             onSubmit={handleSubmit}
         >
             <fieldset className="popup__user-info">
-                <input id="title-input" value={newCardName} onChange={handleNameNewCard} className="popup__text popup__text_purpose_title" type="text" name="title" placeholder="Название" required minLength="2" maxLength="30" />
+                <input
+                    id="title-input"
+                    value={newCardName}
+                    onChange={handleNameNewCard}
+                    className="popup__text popup__text_purpose_title"
+                    type="text"
+                    name="title"
+                    placeholder="Название"
+                    required 
+                    minLength="2"
+                    maxLength="30"
+                />
                 <span className="popup__text-error title-input-error">Необходимо заполнить данное поле.</span>
-                <input id="src-input" value={newCardLink} onChange={handleLinkNewCard} className="popup__text popup__text_purpose_src" type="url" name="src" placeholder="Ссылка на картинку" required />
+                <input
+                    id="src-input"
+                    value={newCardLink}
+                    onChange={handleLinkNewCard}
+                    className="popup__text popup__text_purpose_src"
+                    type="url"
+                    name="src"
+                    placeholder="Ссылка на картинку"
+                    required
+                />
                 <span className="popup__text-error src-input-error">Необходимо заполнить данное поле.</span>
             </fieldset>
         </PopupWithForm>
