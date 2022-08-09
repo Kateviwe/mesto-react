@@ -7,8 +7,24 @@ function EditAvatarPopup({
     onClose,
     onUpdateAvatar
 }) {
+    
     //Создадим реф, чтобы получить прямой доступ к DOM-элементу инпута и его значению
     const avatarRef = React.useRef();
+
+    const [isAvatarValid, setIsAvatarValid] = React.useState(false);
+    const [textAvatarError, setTextAvatarError] = React.useState('');
+
+    //Валидация всей формы на основе данных valid с инпутов
+    const [isFormValid, setIsFormValid] = React.useState(false);
+
+    function handleAvatarChange(e) {
+        const input = e.target;
+        setIsAvatarValid(input.validity.valid);
+        setTextAvatarError(input.validity.valid ? '' : input.validationMessage);
+        if(input.validity.valid) {
+            setIsFormValid(true);
+        }
+    }
 
     function clearInputValue() {
         //Сначала закроем все попапы, только после этого очистим инпут формы
@@ -28,6 +44,18 @@ function EditAvatarPopup({
         clearInputValue();
     }
 
+    React.useEffect(() => {
+        if (!isOpen) {
+            setTextAvatarError('');
+            setIsFormValid(false);
+        }
+    }, [isOpen]);
+
+    //Валидация всей формы на основе данных valid с инпутов
+    React.useEffect(() => {
+        isAvatarValid ? setIsFormValid(true) : setIsFormValid(false);
+    }, [isAvatarValid]);
+
     return (
         <PopupWithForm
             name="avatar"
@@ -38,6 +66,7 @@ function EditAvatarPopup({
             isOpen={isOpen}
             onClose={clearInputValue}
             onSubmit={handleSubmit}
+            isFormValid={isFormValid}
         >
             <fieldset className="popup__user-info">
                 <input
@@ -48,8 +77,9 @@ function EditAvatarPopup({
                     name="avatar"
                     placeholder="Ссылка на картинку"
                     required
+                    onChange={handleAvatarChange}
                 />
-                <span className="popup__text-error avatar-input-error">Необходимо заполнить данное поле.</span>
+                <span className={`popup__text-error avatar-input-error ${!isAvatarValid && 'popup__text-error_visible'}`}>{textAvatarError}</span>
             </fieldset>
         </PopupWithForm>
     );

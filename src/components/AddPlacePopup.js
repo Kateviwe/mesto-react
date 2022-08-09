@@ -11,11 +11,26 @@ function AddPlacePopup({
     const [newCardName, setNewCardName] = React.useState('');
     const [newCardLink, setNewCardLink] = React.useState('');
 
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isLinkValid, setIsLinkValid] = React.useState(false);
+
+    const [textTitleError, setTextTitleError] = React.useState('');
+    const [textLinkError, setTextLinkError] = React.useState('');
+
+    //Валидация всей формы на основе данных valid с инпутов
+    const [isFormValid, setIsFormValid] = React.useState(false);
+
     function handleNameNewCard(e) {
-        setNewCardName(e.target.value);
+        const input = e.target;
+        setNewCardName(input.value);
+        setIsTitleValid(input.validity.valid);
+        setTextTitleError(input.validity.valid ? '' : input.validationMessage);
     }
     function handleLinkNewCard(e) {
-        setNewCardLink(e.target.value);
+        const input = e.target;
+        setNewCardLink(input.value);
+        setIsLinkValid(input.validity.valid);
+        setTextLinkError(input.validity.valid ? '' : input.validationMessage);
     }
 
     function handleSubmit(e) {
@@ -32,8 +47,16 @@ function AddPlacePopup({
         if (!isOpen) {
             setNewCardName('');
             setNewCardLink('');
+            setTextTitleError('');
+            setTextLinkError('');
+            setIsFormValid(false);
         }
     }, [isOpen]);
+
+    //Валидация всей формы на основе данных valid с инпутов
+    React.useEffect(() => {
+        (isTitleValid && isLinkValid) ? setIsFormValid(true) : setIsFormValid(false);
+    }, [isTitleValid, isLinkValid]);
     
     return (
         <PopupWithForm
@@ -45,6 +68,7 @@ function AddPlacePopup({
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
+            isFormValid={isFormValid}
         >
             <fieldset className="popup__user-info">
                 <input
@@ -59,7 +83,7 @@ function AddPlacePopup({
                     minLength="2"
                     maxLength="30"
                 />
-                <span className="popup__text-error title-input-error">Необходимо заполнить данное поле.</span>
+                <span className={`popup__text-error title-input-error ${!isTitleValid && 'popup__text-error_visible'}`}>{textTitleError}</span>
                 <input
                     id="src-input"
                     value={newCardLink}
@@ -70,7 +94,7 @@ function AddPlacePopup({
                     placeholder="Ссылка на картинку"
                     required
                 />
-                <span className="popup__text-error src-input-error">Необходимо заполнить данное поле.</span>
+                <span className={`popup__text-error src-input-error ${!isLinkValid && 'popup__text-error_visible'}`}>{textLinkError}</span>
             </fieldset>
         </PopupWithForm>
     );

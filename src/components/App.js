@@ -152,8 +152,16 @@ function App() {
                         onCardDelete={handleCardDelete}
                     />
                     <Footer />
-                    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-                    <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+                    <EditProfilePopup
+                        isOpen={isEditProfilePopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateUser={handleUpdateUser}
+                    />
+                    <AddPlacePopup
+                        isOpen={isAddPlacePopupOpen}
+                        onClose={closeAllPopups}
+                        onAddPlace={handleAddPlaceSubmit}
+                    />
                     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
                     <PopupWithForm 
                         name="delete-confirmation"
@@ -162,7 +170,11 @@ function App() {
                         textButton="Да"
                         flag={true}
                     />
-                    <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+                    <EditAvatarPopup
+                        isOpen={isEditAvatarPopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateAvatar={handleUpdateAvatar}
+                    />
                 </div>
             </div>
         </CurrentUserContext.Provider>

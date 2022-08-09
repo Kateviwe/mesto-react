@@ -8,6 +8,7 @@ function PopupWithForm({
     isOpen,
     onClose,
     onSubmit,
+    isFormValid,
     children
 }) {
     
@@ -19,7 +20,7 @@ function PopupWithForm({
                 <form className={`popup__inner popup__inner_purpose_${functionPopup}`} name={name} onSubmit={onSubmit} noValidate>
                     <h2 className={`popup__heading ${flag ? `popup__heading_purpose_${functionPopup}` : ''}`}>{title}</h2>
                     {children}
-                    <button className={`popup__button popup__button_purpose_${functionPopup}`} type="submit">{textButton}</button>
+                    <button className={`popup__button popup__button_purpose_${functionPopup} ${!isFormValid && 'popup__button_disabled'}`} disabled={!isFormValid} type="submit">{textButton}</button>
                 </form>
                 <div className={`popup__overlay popup__overlay_purpose_${functionPopup}`}></div> 
             </div>
