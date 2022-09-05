@@ -9,6 +9,7 @@ function EditAvatarPopup({
 }) {
     
     //Создадим реф, чтобы получить прямой доступ к DOM-элементу инпута и его значению
+    //Избыточно для инпута, но наглядно представлено использование
     const avatarRef = React.useRef();
 
     const [isAvatarValid, setIsAvatarValid] = React.useState(false);
